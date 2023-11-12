@@ -166,7 +166,7 @@ public class EpicAndSubtaskData {
             for (Subtask subtask : epic.listOfSubtasks.values()) {
                 if (subtask.ID == IDOfSubtask) {
                     epic.listOfSubtasks.remove(epic.epicName);
-git
+                    
                     return "Подзадача успешно удалена";
                 }
             }
