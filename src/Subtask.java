@@ -1,22 +1,24 @@
-public class Subtask{
-    String subtaskName;
-    String subtaskStatus;
-    int ID;
+public class Subtask extends Task {
+    String nameSubtaskEpic;
 
-    Subtask(String subtaskName) {
-        this.subtaskName = subtaskName;
-        this.subtaskStatus = "NEW";
-
-        this.hashCode();
+    public String getNameSubtaskEpic() {
+        return nameSubtaskEpic;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 31;
-
-        hash = hash * ((subtaskName == null) ? 0 : subtaskName.hashCode());
-        ID = hash;
-
-        return hash;
+    public void setNameSubtaskEpic(String nameSubtaskEpic) {
+        this.nameSubtaskEpic = nameSubtaskEpic;
     }
+
+    Subtask(String name, String additionalInformation, String nameSubtaskEpic) {
+        super(name, additionalInformation);
+
+        this.nameSubtaskEpic = nameSubtaskEpic;
+    }
+
+    Subtask(String name, String additionalInformation, String nameSubtaskEpic, String status) {
+        super(name, additionalInformation, status);
+
+        this.nameSubtaskEpic = nameSubtaskEpic;
+    }
+
 }

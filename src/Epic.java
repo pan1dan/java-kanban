@@ -1,49 +1,17 @@
 import java.util.HashMap;
 
-public class Epic {
-    String epicName;
-    String additionalInformation;
-    String epicStatus;
-    int ID;
+public class Epic extends Task {
+    private HashMap<Integer, Subtask> subtasksList = new HashMap<>();
 
-    HashMap<String, Subtask> listOfSubtasks;
-
-    Epic(String epicName, String additionalInformation) {
-        this.epicName = epicName;
-        this.epicStatus = "NEW";
-        this.additionalInformation = additionalInformation;
-
-        listOfSubtasks = new HashMap<>();
+    public HashMap<Integer, Subtask> getSubtasksList() {
+        return subtasksList;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 31;
-
-        hash = hash * ((epicName == null) ? 0 : epicName.hashCode());
-        ID = hash;
-
-        return hash;
+    public void setSubtasksList(HashMap<Integer, Subtask> subtasksList) {
+        this.subtasksList = subtasksList;
     }
 
-    void changeEpicStatus() {
-        int counterOfDone = 0;
-
-        for (Subtask subtask : listOfSubtasks.values()) {
-            if (subtask.subtaskStatus.equals("DONE")) {
-                counterOfDone++;
-            }
-
-            if (counterOfDone == listOfSubtasks.size()) {
-                epicStatus = "DONE";
-                return;
-            }
-        }
-
-        for (Subtask subtask : listOfSubtasks.values()) {
-            if (subtask.subtaskStatus.equals("IN_PROGRESS")) {
-                epicStatus = "IN_PROGRESS";
-            }
-        }
+    Epic(String name, String additionalInformation) {
+        super(name, additionalInformation);
     }
 }
