@@ -1,14 +1,14 @@
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Epic extends Task {
-    private HashMap<Integer, Subtask> subtasksList = new HashMap<>();
+    private ArrayList<Integer> subtaskIds = new ArrayList<>();
 
-    public HashMap<Integer, Subtask> getSubtasksList() {
-        return subtasksList;
+    public ArrayList<Integer> getSubtaskIds() {
+        return subtaskIds;
     }
 
-    public void setSubtasksList(HashMap<Integer, Subtask> subtasksList) {
-        this.subtasksList = subtasksList;
+    public void setSubtaskIds(ArrayList<Integer> subtaskIds) {
+        this.subtaskIds = subtaskIds;
     }
 
     Epic(String name, String additionalInformation) {

@@ -20,5 +20,4 @@ public class Subtask extends Task {
 
         this.nameSubtaskEpic = nameSubtaskEpic;
     }
-
 }
