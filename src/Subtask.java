@@ -1,23 +1,23 @@
 public class Subtask extends Task {
-    String nameSubtaskEpic;
+    private int idOfEpic;
 
-    public String getNameSubtaskEpic() {
-        return nameSubtaskEpic;
+    public int getIdOfEpic() {
+        return idOfEpic;
     }
 
-    public void setNameSubtaskEpic(String nameSubtaskEpic) {
-        this.nameSubtaskEpic = nameSubtaskEpic;
+    public void setIdOfEpic(int idOfEpic) {
+        this.idOfEpic = idOfEpic;
     }
 
-    Subtask(String name, String additionalInformation, String nameSubtaskEpic) {
+    Subtask(String name, String additionalInformation, int idOfEpic) {
         super(name, additionalInformation);
 
-        this.nameSubtaskEpic = nameSubtaskEpic;
+        this.idOfEpic = idOfEpic;
     }
 
-    Subtask(String name, String additionalInformation, String nameSubtaskEpic, String status) {
+    Subtask(String name, String additionalInformation, int idOfEpic, String status) {
         super(name, additionalInformation, status);
 
-        this.nameSubtaskEpic = nameSubtaskEpic;
+        this.idOfEpic = idOfEpic;
     }
 }
