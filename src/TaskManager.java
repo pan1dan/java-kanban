@@ -5,15 +5,10 @@ public class TaskManager {
     HashMap<Integer, Task> tasksMap = new HashMap<>();
     HashMap<Integer, Epic> epicsMap = new HashMap<>();
     HashMap<Integer, Subtask> subtasksMap = new HashMap<>();
-
-    public int counterID = 0;
+    private int counterID = 0;
 
     public ArrayList<Task> getAllTasks() {
-        ArrayList<Task> allTasks = new ArrayList<>();
-        for (Task task : tasksMap.values()) {
-            allTasks.add(task);
-        }
-        return allTasks;
+        return new ArrayList<>(tasksMap.values());
     }
 
     public void deleteAllTasks() {
@@ -48,19 +43,15 @@ public class TaskManager {
     }
 
     public ArrayList<Subtask> getAllSubtasks() {
-        ArrayList<Subtask> allSubtasks = new ArrayList<>();
-        for (Subtask subtask : subtasksMap.values()) {
-            allSubtasks.add(subtask);
-        }
-        return allSubtasks;
+        return new ArrayList<>(subtasksMap.values());
     }
 
     public void deleteAllSubtasks() {
+        subtasksMap.clear();
         if (!epicsMap.isEmpty()) {
             for (Epic epic : epicsMap.values()) {
                 if (!epic.getSubtasksIds().isEmpty()) {
                     epic.setSubtasksIds(new ArrayList<Integer>());
-                    subtasksMap.clear();
                     changeEpicStatus(epic);
                 }
             }
@@ -103,11 +94,7 @@ public class TaskManager {
     }
 
     public ArrayList<Epic> getAllEpics() {
-        ArrayList<Epic> allEpics = new ArrayList<>();
-        for (Epic epic : epicsMap.values()) {
-            allEpics.add(epic);
-        }
-        return allEpics;
+        return new ArrayList<>(epicsMap.values());
     }
 
     public void deleteAllEpics() {
@@ -159,6 +146,7 @@ public class TaskManager {
             return;
         }
         int counterOfDone = 0;
+        int counterOfNew = 0;
         for(int idOfSubtask : epic.getSubtasksIds()) {
             if (subtasksMap.get(idOfSubtask).getStatus().equals("IN_PROGRESS")) {
                 epic.setStatus("IN_PROGRESS");
@@ -166,11 +154,16 @@ public class TaskManager {
             }
             if (subtasksMap.get(idOfSubtask).getStatus().equals("DONE")) {
                 counterOfDone++;
+            } else {
+                counterOfNew++;
             }
         }
         if (counterOfDone == epic.getSubtasksIds().size()) {
             epic.setStatus("DONE");
-        } else if (counterOfDone > 0 && counterOfDone < epic.getSubtasksIds().size()) {
+        } else if (counterOfNew == epic.getSubtasksIds().size()) {
+            epic.setStatus("NEW");
+        }
+        else if (counterOfDone > 0 && counterOfNew > 0) {
             epic.setStatus("IN_PROGRESS");
         }
     }
