@@ -1,50 +1,66 @@
 public class Main {
     public static void main(String[] args) {
-        TaskManager taskManager = new TaskManager();
+        Managers managers = new Managers();
 
         Task task1 = new Task("Read book every day", "30 pages");
-        taskManager.addNewTask(task1);
-        System.out.println(taskManager.getAllTasks());
-        taskManager.updateTask(new Task("Read book every day", "30 pages", "IN_PROGRESS"));
-        System.out.println(taskManager.getAllTasks());
+        managers.taskManager.addNewTask(task1);
+        managers.taskManager.getTaskByID(task1.getID());
+        Managers.getDefaultHistory().getHistory();
+        System.out.println(managers.taskManager.getAllTasks());
+        managers.taskManager.updateTask(new Task("Read book every day", "30 pages", TaskStatuses.IN_PROGRESS));
+        managers.taskManager.getTaskByID(task1.getID());
+        Managers.getDefaultHistory().getHistory();
+        System.out.println(managers.taskManager.getAllTasks());
 
         Task task2 = new Task("jump every day", "30 iterations");
-        taskManager.addNewTask(task2);
-        System.out.println(taskManager.getAllTasks());
-        taskManager.updateTask(new Task("jump every day", "30 iterations", "DONE"));
-        System.out.println(taskManager.getAllTasks());
-        taskManager.deleteAllTasks();
-        System.out.println(taskManager.getAllTasks());
+        managers.taskManager.addNewTask(task2);
+        managers.taskManager.getTaskByID(task2.getID());
+        Managers.getDefaultHistory().getHistory();
+        System.out.println(managers.taskManager.getAllTasks());
+        managers.taskManager.updateTask(new Task("jump every day", "30 iterations", TaskStatuses.DONE));
+        System.out.println(managers.taskManager.getAllTasks());
+        managers.taskManager.deleteAllTasks();
+        System.out.println(managers.taskManager.getAllTasks());
 
         Epic epic1 = new Epic("Съездить в Москву", "обязательно до лета");
-        taskManager.addNewEpic(epic1);
+        managers.taskManager.addNewEpic(epic1);
+        managers.taskManager.getEpicByID(epic1.getID());
+        Managers.getDefaultHistory().getHistory();
         Subtask subtask11 = new Subtask("купить билеты", "дешёвые билеты", epic1.getID());
         Subtask subtask12 = new Subtask("купить одежду", "крутую одежду", epic1.getID());
-        taskManager.addNewSubtask(subtask11);
-        taskManager.addNewSubtask(subtask12);
-        System.out.println(taskManager.getAllEpics());
-        System.out.println(taskManager.getAllSubtasks());
-        taskManager.updateSubtask(new Subtask("купить билеты",
-                "дешёвые билеты", epic1.getID(), "IN_PROGRESS"));
-        taskManager.updateSubtask(new Subtask("купить одежду",
-                "крутую одежду", epic1.getID(), "DONE"));
-        System.out.println(taskManager.getAllEpics());
-        System.out.println(taskManager.getAllSubtasks());
+        managers.taskManager.addNewSubtask(subtask11);
+        managers.taskManager.getSubtasksByID(subtask11.getID());
+        Managers.getDefaultHistory().getHistory();
+        managers.taskManager.addNewSubtask(subtask12);
+        managers.taskManager.getSubtasksByID(subtask12.getID());
+        Managers.getDefaultHistory().getHistory();
+        System.out.println(managers.taskManager.getAllEpics());
+        System.out.println(managers.taskManager.getAllSubtasks());
+        managers.taskManager.updateSubtask(new Subtask("купить билеты",
+                "дешёвые билеты", epic1.getID(), TaskStatuses.IN_PROGRESS));
+        managers.taskManager.updateSubtask(new Subtask("купить одежду",
+                "крутую одежду", epic1.getID(), TaskStatuses.DONE));
+        System.out.println(managers.taskManager.getAllEpics());
+        System.out.println(managers.taskManager.getAllSubtasks());
 
         Epic epic2 = new Epic("посмотреть кино", "обязательно до конца месяца");
-        taskManager.addNewEpic(epic2);
+        managers.taskManager.addNewEpic(epic2);
+        managers.taskManager.getEpicByID(epic2.getID());
+        Managers.getDefaultHistory().getHistory();
         Subtask subtask21 = new Subtask("найти кино", "в хорошем качестве", epic2.getID());
-        taskManager.addNewSubtask(subtask21);
-        System.out.println(taskManager.getAllEpics());
-        System.out.println(taskManager.getAllSubtasks());
-        taskManager.updateSubtask(new Subtask("найти кино",
-                "в хорошем качестве", epic2.getID(), "DONE"));
-        System.out.println(taskManager.getAllEpics());
-        System.out.println(taskManager.getAllSubtasks());
-        taskManager.deleteAllSubtasks();
-        System.out.println(taskManager.getAllSubtasks());
-        System.out.println(taskManager.getAllEpics());
-        taskManager.deleteAllEpics();
-        System.out.println(taskManager.getAllEpics());
+        managers.taskManager.addNewSubtask(subtask21);
+        managers.taskManager.getSubtasksByID(subtask21.getID());
+        Managers.getDefaultHistory().getHistory();
+        System.out.println(managers.taskManager.getAllEpics());
+        System.out.println(managers.taskManager.getAllSubtasks());
+        managers.taskManager.updateSubtask(new Subtask("найти кино",
+                "в хорошем качестве", epic2.getID(), TaskStatuses.DONE));
+        System.out.println(managers.taskManager.getAllEpics());
+        System.out.println(managers.taskManager.getAllSubtasks());
+        managers.taskManager.deleteAllSubtasks();
+        System.out.println(managers.taskManager.getAllSubtasks());
+        System.out.println(managers.taskManager.getAllEpics());
+        managers.taskManager.deleteAllEpics();
+        System.out.println(managers.taskManager.getAllEpics());
     }
 }

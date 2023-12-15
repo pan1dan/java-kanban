@@ -11,13 +11,11 @@ public class Subtask extends Task {
 
     Subtask(String name, String additionalInformation, int idOfEpic) {
         super(name, additionalInformation);
-
         this.idOfEpic = idOfEpic;
     }
 
-    Subtask(String name, String additionalInformation, int idOfEpic, String status) {
+    Subtask(String name, String additionalInformation, int idOfEpic, TaskStatuses status) {
         super(name, additionalInformation, status);
-
         this.idOfEpic = idOfEpic;
     }
 }
