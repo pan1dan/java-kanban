@@ -4,15 +4,12 @@ public class InMemoryHistoryManager implements HistoryManager{
     private ArrayList<Task> taskHistory = new ArrayList<>();
 
     public void add(Task task){
-        if (taskHistory.size() < 11) {
-            taskHistory.add(taskHistory.size(), task);
+        if (taskHistory.size() == 10) {
+            taskHistory.remove(0);
+            taskHistory.add(task);
             return;
         }
-
-        for (int i = 1; i < taskHistory.size() - 1; i++) {
-            taskHistory.add(i - 1, taskHistory.get(i));
-        }
-        taskHistory.add(taskHistory.size() - 1, task);
+        taskHistory.add(task);
     }
 
     @Override
