@@ -6,6 +6,11 @@ public class InMemoryTaskManager implements TaskManager{
     HashMap<Integer, Epic> epicsMap = new HashMap<>();
     HashMap<Integer, Subtask> subtasksMap = new HashMap<>();
     private int counterID = 0;
+    private HistoryManager historyManager;
+
+    public InMemoryTaskManager() {
+        this.historyManager = Managers.getDefaultHistory();
+    }
 
     @Override
     public ArrayList<Task> getAllTasks() {
@@ -22,7 +27,7 @@ public class InMemoryTaskManager implements TaskManager{
     @Override
     public Task getTaskByID(int id) {
         if (tasksMap.containsKey(id)) {
-            Managers.getDefaultHistory().add(tasksMap.get(id));
+            historyManager.add(tasksMap.get(id));
             return tasksMap.get(id);
         }
         return null;
@@ -70,7 +75,7 @@ public class InMemoryTaskManager implements TaskManager{
     @Override
     public Subtask getSubtasksByID(int id) {
         if (subtasksMap.containsKey(id)) {
-            Managers.getDefaultHistory().add(tasksMap.get(id));
+            historyManager.add(subtasksMap.get(id));
             return subtasksMap.get(id);
         }
         return null;
@@ -123,7 +128,7 @@ public class InMemoryTaskManager implements TaskManager{
     @Override
     public Epic getEpicByID(int id) {
         if (epicsMap.containsKey(id)) {
-            Managers.getDefaultHistory().add(tasksMap.get(id));
+            historyManager.add(epicsMap.get(id));
             return epicsMap.get(id);
         }
         return null;
