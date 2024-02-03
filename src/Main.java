@@ -17,8 +17,11 @@ public class Main {
         System.out.println(Managers.getDefault().getAllTasks());
         Managers.getDefault().updateTask(new Task("jump every day", "30 iterations", TaskStatuses.DONE));
         System.out.println(Managers.getDefault().getAllTasks());
+        Managers.getDefaultHistory().getHistory();
         Managers.getDefault().deleteAllTasks();
         System.out.println(Managers.getDefault().getAllTasks());
+        Managers.getDefault().deleteAllTasks();
+        Managers.getDefaultHistory().getHistory();
 
         Epic epic1 = new Epic("Съездить в Москву", "обязательно до лета");
         Managers.getDefault().addNewEpic(epic1);
