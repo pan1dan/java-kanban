@@ -136,6 +136,9 @@ public class InMemoryTaskManager implements TaskManager{
         if (!epicsMap.isEmpty()) {
             for (Map.Entry<Integer, Epic> entry : epicsMap.entrySet()) {
                 historyManager.remove(entry.getKey());
+                for (int id : entry.getValue().getSubtasksIds()) {
+                    historyManager.remove(id);
+                }
             }
             epicsMap.clear();
             subtasksMap.clear();

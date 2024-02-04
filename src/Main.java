@@ -6,6 +6,7 @@ public class Main {
         System.out.println("Вариант проверки:");
         System.out.println("1 (старый)");
         System.out.println("2 (новый)");
+        System.out.println("3 (тест для проверки deleteAllEpics)");
         int answer = scanner.nextInt();
         if (answer == 1) {
             Task task1 = new Task("Read book every day", "30 pages");
@@ -110,6 +111,25 @@ public class Main {
             Managers.getDefault().deleteSubtaskByID(subtask11.getID());
             Managers.getDefaultHistory().getHistory();
             Managers.getDefault().deleteEpicByID(epic1.getID());
+            Managers.getDefaultHistory().getHistory();
+        } else if (answer == 3) {
+            Epic epic1 = new Epic("Съездить в Москву", "обязательно до лета");
+            Managers.getDefault().addNewEpic(epic1);
+            Subtask subtask11 = new Subtask("купить билеты", "дешёвые билеты", epic1.getID());
+            Managers.getDefault().addNewSubtask(subtask11);
+            Subtask subtask12 = new Subtask("купить одежду", "крутую одежду", epic1.getID());
+            Managers.getDefault().addNewSubtask(subtask12);
+            Subtask subtask13 = new Subtask("подготовиться", "морально", epic1.getID());
+            Managers.getDefault().addNewSubtask(subtask13);
+            Epic epic2 = new Epic("посмотреть кино", "обязательно до конца месяца");
+            Managers.getDefault().addNewEpic(epic2);
+            Managers.getDefault().getSubtasksByID(subtask11.getID());
+            Managers.getDefault().getSubtasksByID(subtask12.getID());
+            Managers.getDefault().getSubtasksByID(subtask13.getID());
+            Managers.getDefault().getEpicByID(epic1.getID());
+            Managers.getDefault().getEpicByID(epic2.getID());
+            Managers.getDefaultHistory().getHistory();
+            Managers.getDefault().deleteAllEpics();
             Managers.getDefaultHistory().getHistory();
         }
 
