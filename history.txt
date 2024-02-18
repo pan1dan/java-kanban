@@ -1,0 +1,11 @@
+id,type,name,status,description,epic
+1,TASK,Read book every day,NEW,30 pages,
+2,TASK,jump every day,NEW,30 iterations,
+3,TASK,Eat every day,NEW,3 iterations,
+4,EPIC,Съездить в Москву,NEW,обязательно до лета,
+7,EPIC,посмотреть кино,NEW,обязательно до конца месяца,
+5,SUBTASK,купить билеты,NEW,дешёвые билеты,4
+6,SUBTASK,купить одежду,NEW,крутую одежду,4
+8,SUBTASK,найти кино,NEW,в хорошем качестве,7
+
+8,7,6,5,4,3,2,1,

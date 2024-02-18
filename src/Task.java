@@ -1,8 +1,12 @@
 public class Task {
+    private final TypeOfTask type = TypeOfTask.TASK;
     protected String name;
     protected TaskStatuses status;
     protected int id = 0;
     protected String additionalInformation;
+    public TypeOfTask getType() {
+        return type;
+    }
 
     public String getName() {
         return name;
@@ -46,5 +50,21 @@ public class Task {
         this.name = name;
         this.additionalInformation = additionalInformation;
         this.status = status;
+    }
+
+    public String taskToString() {
+        StringBuilder line = new StringBuilder("");
+        line.append(this.getID());
+        line.append(",");
+        line.append(this.getType());
+        line.append(",");
+        line.append(this.getName());
+        line.append(",");
+        line.append(this.getStatus());
+        line.append(",");
+        line.append(this.getAdditionalInformation());
+        line.append(",");
+
+        return line.toString();
     }
 }
