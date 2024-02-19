@@ -1,3 +1,5 @@
+package Tasks;
+
 public class Task {
     private final TypeOfTask type = TypeOfTask.TASK;
     protected String name;
@@ -40,13 +42,13 @@ public class Task {
         this.additionalInformation = additionalInformation;
     }
 
-    Task (String name, String additionalInformation) {
+    public Task (String name, String additionalInformation) {
         this.name = name;
         this.status = TaskStatuses.NEW;
         this.additionalInformation = additionalInformation;
     }
 
-    Task (String name, String additionalInformation, TaskStatuses status) {
+    public Task (String name, String additionalInformation, TaskStatuses status) {
         this.name = name;
         this.additionalInformation = additionalInformation;
         this.status = status;

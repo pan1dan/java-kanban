@@ -1,10 +1,17 @@
+package Managers.TaskManager;
+
+import Exceptions.ManagerSaveException;
+import Managers.HistoryManager.HistoryManager;
+import Tasks.*;
+import Utils.Utils;
+import Managers.Managers;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Scanner;
 
-public class FileBackedTasksManager extends InMemoryTasksManager implements TaskManager{
-    File file;
+public class FileBackedTasksManager extends InMemoryTasksManager implements TaskManager {
+    private final File file;
 
     FileBackedTasksManager(File file) {
         super();
@@ -33,7 +40,7 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
         }
     }
 
-    public Task taskFromString(String value) {
+    private Task taskFromString(String value) {
         String[] line = value.split(",");
         if (line[1].equals(TypeOfTask.TASK.toString())) {
             Task task = new Task(line[2], line[4], TaskStatuses.valueOf(line[3]));
@@ -57,7 +64,7 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
         }
     }
 
-    static String historyToString(HistoryManager manager) {
+    private static String historyToString(HistoryManager manager) {
         StringBuilder lineOfHistory = new StringBuilder("");
         for (Task task : manager.getHistory()) {
             lineOfHistory.append(task.getID());
@@ -66,7 +73,7 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
         return lineOfHistory.toString();
     }
 
-    static ArrayList<Integer> historyFromString(String value) {
+    private static ArrayList<Integer> historyFromString(String value) {
         String[] split = value.split(",");
         ArrayList<Integer> historyList = new ArrayList<>();
         for(int i = 0; i < split.length; i++) {
@@ -75,7 +82,7 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
         return historyList;
     }
 
-    static FileBackedTasksManager loadFromFile(File file) throws FileNotFoundException, IOException {
+    public static FileBackedTasksManager loadFromFile(File file){
         try {
             Reader fileReader = new FileReader(file.getPath());
             BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -87,7 +94,7 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
                 if (line.isEmpty()) {
                     continue;
                 }
-                if (isNumber(line.split(",")[1])) {
+                if (Utils.isNumber(line.split(",")[1])) {
                     historyFromString(line);
                     return fileBackedTasksManager;
                 }
@@ -101,21 +108,6 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
             System.out.println(e.getMessage());
         }
         return null;
-    }
-
-    private static boolean isNumber(String str) throws NumberFormatException {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    public class ManagerSaveException extends RuntimeException {
-        public ManagerSaveException(final String message) {
-            super(message);
-        }
     }
 
     @Override
@@ -217,54 +209,53 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
         return returnableEpic;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
+        FileBackedTasksManager fileBackedTasksManager1 = new FileBackedTasksManager(
+                new File(System.getProperty("user.dir") + "\\history.txt"));
+        Task task1 = new Task("Read book every day", "30 pages");
+        fileBackedTasksManager1.addNewTask(task1);
+        Task task2 = new Task("jump every day", "30 iterations");
+        fileBackedTasksManager1.addNewTask(task2);
+        Task task3 = new Task("Eat every day", "3 iterations");
+        fileBackedTasksManager1.addNewTask(task3);
 
-        Scanner scanner = new Scanner(System.in);
+        Epic epic1 = new Epic("Съездить в Москву", "обязательно до лета");
+        fileBackedTasksManager1.addNewEpic(epic1);
+        Subtask subtask11 = new Subtask("купить билеты", "дешёвые билеты", epic1.getID());
+        fileBackedTasksManager1.addNewSubtask(subtask11);
+        Subtask subtask12 = new Subtask("купить одежду", "крутую одежду", epic1.getID());
+        fileBackedTasksManager1.addNewSubtask(subtask12);
 
-        System.out.println("Хотите восстановить версию программы до закрытия?");
-        System.out.println("1. Да");
-        System.out.println("2. Нет");
-        int answer = scanner.nextInt();
+        Epic epic2 = new Epic("посмотреть кино", "обязательно до конца месяца");
+        fileBackedTasksManager1.addNewEpic(epic2);
+        Subtask subtask21 = new Subtask("найти кино", "в хорошем качестве", epic2.getID());
+        fileBackedTasksManager1.addNewSubtask(subtask21);
 
-        if (answer == 2) {
-            FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager(
-                    new File(System.getProperty("user.dir") + "\\history.txt"));
-            Task task1 = new Task("Read book every day", "30 pages");
-            fileBackedTasksManager.addNewTask(task1);
-            Task task2 = new Task("jump every day", "30 iterations");
-            fileBackedTasksManager.addNewTask(task2);
-            Task task3 = new Task("Eat every day", "3 iterations");
-            fileBackedTasksManager.addNewTask(task3);
+        fileBackedTasksManager1.getTaskByID(task1.getID());
+        fileBackedTasksManager1.getTaskByID(task2.getID());
+        fileBackedTasksManager1.getTaskByID(task3.getID());
+        fileBackedTasksManager1.deleteTaskByID(task2.getID());
+        fileBackedTasksManager1.updateTask(new Task("jump every day", "30 iterations",
+                                                    TaskStatuses.DONE));
+        fileBackedTasksManager1.getTaskByID(task2.getID());
 
-            Epic epic1 = new Epic("Съездить в Москву", "обязательно до лета");
-            fileBackedTasksManager.addNewEpic(epic1);
-            Subtask subtask11 = new Subtask("купить билеты", "дешёвые билеты", epic1.getID());
-            fileBackedTasksManager.addNewSubtask(subtask11);
-            Subtask subtask12 = new Subtask("купить одежду", "крутую одежду", epic1.getID());
-            fileBackedTasksManager.addNewSubtask(subtask12);
+        fileBackedTasksManager1.getEpicByID(epic1.getID());
+        fileBackedTasksManager1.getSubtasksByID(subtask11.getID());
+        fileBackedTasksManager1.getSubtasksByID(subtask12.getID());
+        fileBackedTasksManager1.getTaskByID(task1.getID());
+        fileBackedTasksManager1.deleteAllSubtasks();
 
-            Epic epic2 = new Epic("посмотреть кино", "обязательно до конца месяца");
-            fileBackedTasksManager.addNewEpic(epic2);
-            Subtask subtask21 = new Subtask("найти кино", "в хорошем качестве", epic2.getID());
-            fileBackedTasksManager.addNewSubtask(subtask21);
+        fileBackedTasksManager1.getEpicByID(epic2.getID());
+        fileBackedTasksManager1.getSubtasksByID(subtask21.getID());
+        fileBackedTasksManager1.getAllEpicSubtasks(epic2.getID());
+        Managers.getDefaultHistory().getHistory();
 
+        FileBackedTasksManager fileBackedTasksManager2 = loadFromFile(fileBackedTasksManager1.file);
+        fileBackedTasksManager2.getAllTasks();
+        fileBackedTasksManager2.getAllEpics();
+        fileBackedTasksManager2.getAllSubtasks();
+        Managers.getDefaultHistory().getHistory();
 
-            fileBackedTasksManager.getTaskByID(task1.getID());
-            fileBackedTasksManager.getTaskByID(task2.getID());
-            fileBackedTasksManager.getTaskByID(task3.getID());
-
-            fileBackedTasksManager.getEpicByID(epic1.getID());
-            fileBackedTasksManager.getSubtasksByID(subtask11.getID());
-            fileBackedTasksManager.getSubtasksByID(subtask12.getID());
-
-            fileBackedTasksManager.getEpicByID(epic2.getID());
-            fileBackedTasksManager.getSubtasksByID(subtask21.getID());
-            Managers.getDefaultHistory().getHistory();
-        } else if (answer == 1) {
-            FileBackedTasksManager fileBackedTasksManager = loadFromFile(
-                    new File(System.getProperty("user.dir") + "\\history.txt"));
-            Managers.getDefaultHistory().getHistory();
-        }
 
 
 

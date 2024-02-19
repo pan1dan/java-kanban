@@ -1,3 +1,7 @@
+package Managers.HistoryManager;
+
+import Tasks.Task;
+
 import java.util.ArrayList;
 
 public interface HistoryManager {

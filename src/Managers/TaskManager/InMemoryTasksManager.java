@@ -1,8 +1,17 @@
+package Managers.TaskManager;
+
+import Managers.HistoryManager.HistoryManager;
+import Tasks.Epic;
+import Tasks.Subtask;
+import Tasks.Task;
+import Tasks.TaskStatuses;
+import Managers.Managers;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryTasksManager implements TaskManager{
+public class InMemoryTasksManager implements TaskManager {
     protected Map<Integer, Task> tasksMap = new HashMap<>();
     protected Map<Integer, Epic> epicsMap = new HashMap<>();
     protected Map<Integer, Subtask> subtasksMap = new HashMap<>();

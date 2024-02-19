@@ -1,3 +1,7 @@
+package Tasks;
+
+import Tasks.Task;
+
 public class Subtask extends Task {
     private final TypeOfTask type = TypeOfTask.SUBTASK;
     private int idOfEpic;
@@ -10,12 +14,12 @@ public class Subtask extends Task {
         this.idOfEpic = idOfEpic;
     }
 
-    Subtask(String name, String additionalInformation, int idOfEpic) {
+    public Subtask(String name, String additionalInformation, int idOfEpic) {
         super(name, additionalInformation);
         this.idOfEpic = idOfEpic;
     }
 
-    Subtask(String name, String additionalInformation, int idOfEpic, TaskStatuses status) {
+    public Subtask(String name, String additionalInformation, int idOfEpic, TaskStatuses status) {
         super(name, additionalInformation, status);
         this.idOfEpic = idOfEpic;
     }

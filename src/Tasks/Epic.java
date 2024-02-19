@@ -1,3 +1,5 @@
+package Tasks;
+
 import java.util.ArrayList;
 
 public class Epic extends Task {
@@ -12,7 +14,7 @@ public class Epic extends Task {
         this.subtasksIds = subtasksIds;
     }
 
-    Epic(String name, String additionalInformation) {
+    public Epic(String name, String additionalInformation) {
         super(name, additionalInformation);
     }
 
