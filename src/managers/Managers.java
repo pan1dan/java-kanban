@@ -1,7 +1,7 @@
-package Managers;
+package managers;
 
-import Managers.HistoryManager.*;
-import Managers.TaskManager.*;
+import managers.historyManager.*;
+import managers.taskManager.*;
 
 public class Managers {
     private static InMemoryHistoryManager historyManager = new InMemoryHistoryManager();

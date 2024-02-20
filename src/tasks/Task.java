@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 public class Task {
     private final TypeOfTask type = TypeOfTask.TASK;

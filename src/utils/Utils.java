@@ -1,4 +1,4 @@
-package Utils;
+package utils;
 
 public class Utils {
     public static boolean isNumber(String str) throws NumberFormatException {

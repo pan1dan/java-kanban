@@ -1,10 +1,10 @@
-package Managers.TaskManager;
+package managers.taskManager;
 
-import Exceptions.ManagerSaveException;
-import Managers.HistoryManager.HistoryManager;
-import Tasks.*;
-import Utils.Utils;
-import Managers.Managers;
+import exceptions.ManagerSaveException;
+import managers.historyManager.HistoryManager;
+import tasks.*;
+import utils.Utils;
+import managers.Managers;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.Map;
 public class FileBackedTasksManager extends InMemoryTasksManager implements TaskManager {
     private final File file;
 
-    FileBackedTasksManager(File file) {
+    public FileBackedTasksManager(File file) {
         super();
         this.file = file;
     }
