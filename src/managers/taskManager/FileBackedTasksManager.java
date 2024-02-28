@@ -53,9 +53,11 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
             Epic epic = new Epic(line[2], line[4]);
             epic.setID(Integer.parseInt(line[0]));
             epic.setStatus(TaskStatuses.valueOf(line[3]));
-            epic.setStartTime(Utils.formattedTime(LocalDateTime.parse(line[5])));
-            epic.setDuration(Integer.parseInt(line[6]));
-            epic.setEndTime(epic.getStartTime().plusMinutes(epic.getDuration()));
+            if (!line[5].isEmpty()){
+                epic.setStartTime(Utils.formattedTime(LocalDateTime.parse(line[5])));
+                epic.setDuration(Integer.parseInt(line[6]));
+                epic.setEndTime(epic.getStartTime().plusMinutes(epic.getDuration()));
+            }
             epicsMap.put(epic.getID(), epic);
             return epic;
         } else {
