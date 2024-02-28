@@ -13,6 +13,7 @@ public class Main {
         System.out.println("1 (старый)");
         System.out.println("2 (новый)");
         System.out.println("3 (тест для проверки deleteAllEpics)");
+        System.out.println("4 !!!!");
         int answer = scanner.nextInt();
         if (answer == 1) {
             Task task1 = new Task("Read book every day", "30 pages");
@@ -137,6 +138,8 @@ public class Main {
             Managers.getDefaultHistory().getHistory();
             Managers.getDefault().deleteAllEpics();
             Managers.getDefaultHistory().getHistory();
+        } else if (answer == 4) {
+            Managers.getDefault().getTaskByID(123);
         }
 
     }

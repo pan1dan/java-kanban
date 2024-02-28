@@ -7,11 +7,12 @@ import utils.Utils;
 import managers.Managers;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;
 
 public class FileBackedTasksManager extends InMemoryTasksManager implements TaskManager {
-    private final File file;
+    public final File file;
 
     public FileBackedTasksManager(File file) {
         super();
@@ -20,7 +21,7 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
 
     private void save() throws ManagerSaveException {
         try ( Writer fileWriter = new FileWriter(file.getPath())) {
-            fileWriter.write("id,type,name,status,description,epic\n");
+            fileWriter.write("id,type,name,status,description,startTime,duration,epic\n");
 
             for(Map.Entry<Integer, Task> entry : tasksMap.entrySet()) {
                 fileWriter.write(entry.getValue().taskToString() + "\n");
@@ -40,10 +41,11 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
         }
     }
 
-    private Task taskFromString(String value) {
+    private Task taskFromString(String value) { // поменять здесь чтение даты
         String[] line = value.split(",");
         if (line[1].equals(TypeOfTask.TASK.toString())) {
-            Task task = new Task(line[2], line[4], TaskStatuses.valueOf(line[3]));
+            Task task = new Task(line[2], line[4], TaskStatuses.valueOf(line[3]),
+                    Utils.formattedTime(LocalDateTime.parse(line[5])), Integer.parseInt(line[6]));
             task.setID(Integer.parseInt(line[0]));
             tasksMap.put(task.getID(), task);
             return task;
@@ -51,10 +53,14 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
             Epic epic = new Epic(line[2], line[4]);
             epic.setID(Integer.parseInt(line[0]));
             epic.setStatus(TaskStatuses.valueOf(line[3]));
+            epic.setStartTime(Utils.formattedTime(LocalDateTime.parse(line[5])));
+            epic.setDuration(Integer.parseInt(line[6]));
+            epic.setEndTime(epic.getStartTime().plusMinutes(epic.getDuration()));
             epicsMap.put(epic.getID(), epic);
             return epic;
         } else {
-            Subtask subtask = new Subtask(line[2], line[4], Integer.parseInt(line[5]), TaskStatuses.valueOf(line[3]));
+            Subtask subtask = new Subtask(line[2], line[4], Integer.parseInt(line[7]), TaskStatuses.valueOf(line[3]),
+                    Utils.formattedTime(LocalDateTime.parse(line[5])), Integer.parseInt(line[6]));
             subtask.setID(Integer.parseInt(line[0]));
             ArrayList<Integer> newsSubtasksIds = epicsMap.get(subtask.getIdOfEpic()).getSubtasksIds();
             newsSubtasksIds.add(subtask.getID());
@@ -95,7 +101,17 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
                     continue;
                 }
                 if (Utils.isNumber(line.split(",")[1])) {
-                    historyFromString(line);
+                    ArrayList<Integer> history = historyFromString(line);
+                    for(int id = history.size() - 1; id > -1; id-- ) {
+                        if (fileBackedTasksManager.tasksMap.containsKey(history.get(id))) {
+                            fileBackedTasksManager.getTaskByID(history.get(id));
+                        } else if (fileBackedTasksManager.epicsMap.containsKey(history.get(id))) {
+                            fileBackedTasksManager.getEpicByID(history.get(id));
+                        } else {
+                            fileBackedTasksManager.getSubtasksByID(history.get(id));
+                        }
+                    }
+
                     return fileBackedTasksManager;
                 }
                 Managers.getDefaultHistory().add(fileBackedTasksManager.taskFromString(line));
@@ -235,15 +251,13 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
         fileBackedTasksManager1.getTaskByID(task2.getID());
         fileBackedTasksManager1.getTaskByID(task3.getID());
         fileBackedTasksManager1.deleteTaskByID(task2.getID());
-        fileBackedTasksManager1.updateTask(new Task("jump every day", "30 iterations",
-                                                    TaskStatuses.DONE));
         fileBackedTasksManager1.getTaskByID(task2.getID());
 
         fileBackedTasksManager1.getEpicByID(epic1.getID());
         fileBackedTasksManager1.getSubtasksByID(subtask11.getID());
         fileBackedTasksManager1.getSubtasksByID(subtask12.getID());
         fileBackedTasksManager1.getTaskByID(task1.getID());
-        fileBackedTasksManager1.deleteAllSubtasks();
+        //fileBackedTasksManager1.deleteAllSubtasks();
 
         fileBackedTasksManager1.getEpicByID(epic2.getID());
         fileBackedTasksManager1.getSubtasksByID(subtask21.getID());

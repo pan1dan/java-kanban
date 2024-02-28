@@ -1,8 +1,1 @@
-id,type,name,status,description,epic
-1,TASK,Read book every day,NEW,30 pages,
-3,TASK,Eat every day,NEW,3 iterations,
-9,TASK,jump every day,DONE,30 iterations,
-4,EPIC,Съездить в Москву,NEW,обязательно до лета,
-7,EPIC,посмотреть кино,NEW,обязательно до конца месяца,
-
-7,1,4,3,
+id,type,name,status,description,startTime,duration,epic

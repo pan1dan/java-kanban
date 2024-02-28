@@ -1,11 +1,19 @@
 package tasks;
 
+import utils.Utils;
+
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 public class Task {
     private final TypeOfTask type = TypeOfTask.TASK;
     protected String name;
     protected TaskStatuses status;
     protected int id = 0;
     protected String additionalInformation;
+    protected int duration;
+    protected LocalDateTime startTime = null;
+
     public TypeOfTask getType() {
         return type;
     }
@@ -42,16 +50,54 @@ public class Task {
         this.additionalInformation = additionalInformation;
     }
 
+    public LocalDateTime getEndTime() {
+        return startTime.plusMinutes(duration);
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = Utils.formattedTime(startTime);
+    }
+
+    public LocalDateTime getStartTime() {
+        return Utils.formattedTime(this.startTime);
+    }
+
     public Task (String name, String additionalInformation) {
         this.name = name;
-        this.status = TaskStatuses.NEW;
         this.additionalInformation = additionalInformation;
+        this.status = TaskStatuses.NEW;
+    }
+
+    public Task (String name, String additionalInformation, LocalDateTime startTime,
+                 int duration) {
+        this.name = name;
+        this.additionalInformation = additionalInformation;
+        this.status = TaskStatuses.NEW;
+        this.startTime = Utils.formattedTime(startTime);
+        this.duration = duration;
     }
 
     public Task (String name, String additionalInformation, TaskStatuses status) {
         this.name = name;
         this.additionalInformation = additionalInformation;
         this.status = status;
+    }
+
+    public Task (String name, String additionalInformation, TaskStatuses status, LocalDateTime startTime,
+                 int duration) {
+        this.name = name;
+        this.additionalInformation = additionalInformation;
+        this.status = status;
+        this.startTime = Utils.formattedTime(startTime);
+        this.duration = duration;
     }
 
     public String taskToString() {
@@ -66,7 +112,21 @@ public class Task {
         line.append(",");
         line.append(this.getAdditionalInformation());
         line.append(",");
+        line.append(this.getStartTime());
+        line.append(",");
+        line.append(this.getDuration());
+        line.append(",");
 
         return line.toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return type == task.type && name.equals(task.name) && status == task.status
+                && id == task.id && additionalInformation.equals(task.additionalInformation);
+    }
+
 }

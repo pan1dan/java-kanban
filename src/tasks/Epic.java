@@ -1,10 +1,14 @@
 package tasks;
 
+import utils.Utils;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Epic extends Task {
     private final TypeOfTask type = TypeOfTask.EPIC;
     private ArrayList<Integer> subtasksIds = new ArrayList<>();
+    private LocalDateTime endTime;
 
     public ArrayList<Integer> getSubtasksIds() {
         return subtasksIds;
@@ -24,6 +28,15 @@ public class Epic extends Task {
     }
 
     @Override
+    public LocalDateTime getEndTime(){
+        return Utils.formattedTime(endTime);
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = Utils.formattedTime(endTime);
+    }
+
+    @Override
     public String taskToString() {
         StringBuilder line = new StringBuilder("");
         line.append(this.getID());
@@ -36,7 +49,26 @@ public class Epic extends Task {
         line.append(",");
         line.append(this.getAdditionalInformation());
         line.append(",");
+        if (this.getStartTime() != null) {
+            line.append(this.getStartTime());
+            line.append(",");
+        } else {
+            line.append(",");
+        }
+
+        line.append(this.getDuration());
+        line.append(",");
 
         return line.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Epic epic = (Epic) o;
+        return type == epic.type && name.equals(epic.name) && status == epic.status
+                && id == epic.id && additionalInformation.equals(epic.additionalInformation)
+                && subtasksIds.equals(epic.subtasksIds);
     }
 }

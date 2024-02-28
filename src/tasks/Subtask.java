@@ -1,5 +1,7 @@
 package tasks;
 
+import java.time.LocalDateTime;
+
 public class Subtask extends Task {
     private final TypeOfTask type = TypeOfTask.SUBTASK;
     private int idOfEpic;
@@ -17,10 +19,23 @@ public class Subtask extends Task {
         this.idOfEpic = idOfEpic;
     }
 
+    public Subtask(String name, String additionalInformation, int idOfEpic, LocalDateTime startTime,
+                   int duration) {
+        super(name, additionalInformation, startTime, duration);
+        this.idOfEpic = idOfEpic;
+    }
+
     public Subtask(String name, String additionalInformation, int idOfEpic, TaskStatuses status) {
         super(name, additionalInformation, status);
         this.idOfEpic = idOfEpic;
     }
+
+    public Subtask(String name, String additionalInformation, int idOfEpic, TaskStatuses status, LocalDateTime startTime,
+                 int duration) {
+        super(name, additionalInformation, status, startTime, duration);
+        this.idOfEpic = idOfEpic;
+    }
+
 
     @Override
     public TypeOfTask getType() {
@@ -40,8 +55,22 @@ public class Subtask extends Task {
         line.append(",");
         line.append(this.getAdditionalInformation());
         line.append(",");
+        line.append(this.getStartTime());
+        line.append(",");
+        line.append(this.getDuration());
+        line.append(",");
         line.append(this.getIdOfEpic());
 
         return line.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Subtask subtask = (Subtask) o;
+        return type == subtask.type && name.equals(subtask.name) && status == subtask.status
+                && id == subtask.id && additionalInformation.equals(subtask.additionalInformation)
+                && idOfEpic == subtask.idOfEpic;
     }
 }
