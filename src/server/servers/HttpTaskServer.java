@@ -1,4 +1,4 @@
-package servers;
+package server.servers;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -16,21 +16,27 @@ import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.function.Predicate;
 
 public class HttpTaskServer {
     //Задачи передаются в теле запроса в формате json
     // Поменять коды
     // Разобраться с update
-    private static final int PORT = 8078;
+    private static final int PORT = 8080;
     private static final String PATH = "/tasks";
+
+    HttpServer httpServer;
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
-    public static FileBackedTasksManager managerFileBacked = Managers.getDefaultFileBackedTasksManager();
+    private FileBackedTasksManager managerFileBacked = Managers.getDefaultFileBackedTasksManager();
     //HttpServer httpServer;
     //Gson gson;
 
     public HttpTaskServer() throws IOException{
+        httpServer = HttpServer.create(new InetSocketAddress(PORT), 0);
+
         //gson = new Gson();
         //httpServer = HttpServer.create(new InetSocketAddress(PORT), 0);
+
     }
     public static void main(String[] args) throws IOException {
         HttpServer httpServer = HttpServer.create(new InetSocketAddress(PORT), 0);

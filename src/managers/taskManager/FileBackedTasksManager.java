@@ -19,7 +19,7 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
         this.file = file;
     }
 
-    private void save() throws ManagerSaveException {
+    protected void save() throws ManagerSaveException {
         try ( Writer fileWriter = new FileWriter(file.getPath())) {
             fileWriter.write("id,type,name,status,description,startTime,duration,epic\n");
 
