@@ -22,6 +22,10 @@ public class Epic extends Task {
         super(name, additionalInformation);
     }
 
+    public Epic(String name, String additionalInformation, TaskStatuses taskStatuses, int id) {
+        super(name, additionalInformation, taskStatuses, id);
+    }
+
     @Override
     public TypeOfTask getType() {
         return type;

@@ -229,7 +229,7 @@ class TaskManagerTest {
         Epic epic1 = new Epic("Съездить в Москву", "обязательно до лета");
         Managers.getDefault().addNewEpic(epic1);
         Epic updateEpic = Managers.getDefault().updateEpic(new Epic("Съездить в Москву",
-                "обязательно до зимы"));
+                "обязательно до зимы", epic1.getStatus(), epic1.getID()));
         assertNotEquals(epic1, updateEpic, "Обновленный эпик равен старой аерсии эпика");
         Managers.getDefault().deleteAllEpics();
     }

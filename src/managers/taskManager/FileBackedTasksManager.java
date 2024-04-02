@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class FileBackedTasksManager extends InMemoryTasksManager implements TaskManager {
+public class  FileBackedTasksManager extends InMemoryTasksManager implements TaskManager {
     public final File file;
 
     public FileBackedTasksManager(File file) {
@@ -225,55 +225,5 @@ public class FileBackedTasksManager extends InMemoryTasksManager implements Task
         Epic returnableEpic = super.updateEpic(newEpic);
         save();
         return returnableEpic;
-    }
-
-    public static void main(String[] args) {
-        FileBackedTasksManager fileBackedTasksManager1 = new FileBackedTasksManager(
-                new File(System.getProperty("user.dir") + "\\history.txt"));
-        Task task1 = new Task("Read book every day", "30 pages");
-        fileBackedTasksManager1.addNewTask(task1);
-        Task task2 = new Task("jump every day", "30 iterations");
-        fileBackedTasksManager1.addNewTask(task2);
-        Task task3 = new Task("Eat every day", "3 iterations");
-        fileBackedTasksManager1.addNewTask(task3);
-
-        Epic epic1 = new Epic("Съездить в Москву", "обязательно до лета");
-        fileBackedTasksManager1.addNewEpic(epic1);
-        Subtask subtask11 = new Subtask("купить билеты", "дешёвые билеты", epic1.getID());
-        fileBackedTasksManager1.addNewSubtask(subtask11);
-        Subtask subtask12 = new Subtask("купить одежду", "крутую одежду", epic1.getID());
-        fileBackedTasksManager1.addNewSubtask(subtask12);
-
-        Epic epic2 = new Epic("посмотреть кино", "обязательно до конца месяца");
-        fileBackedTasksManager1.addNewEpic(epic2);
-        Subtask subtask21 = new Subtask("найти кино", "в хорошем качестве", epic2.getID());
-        fileBackedTasksManager1.addNewSubtask(subtask21);
-
-        fileBackedTasksManager1.getTaskByID(task1.getID());
-        fileBackedTasksManager1.getTaskByID(task2.getID());
-        fileBackedTasksManager1.getTaskByID(task3.getID());
-        fileBackedTasksManager1.deleteTaskByID(task2.getID());
-        fileBackedTasksManager1.getTaskByID(task2.getID());
-
-        fileBackedTasksManager1.getEpicByID(epic1.getID());
-        fileBackedTasksManager1.getSubtasksByID(subtask11.getID());
-        fileBackedTasksManager1.getSubtasksByID(subtask12.getID());
-        fileBackedTasksManager1.getTaskByID(task1.getID());
-        //fileBackedTasksManager1.deleteAllSubtasks();
-
-        fileBackedTasksManager1.getEpicByID(epic2.getID());
-        fileBackedTasksManager1.getSubtasksByID(subtask21.getID());
-        fileBackedTasksManager1.getAllEpicSubtasks(epic2.getID());
-        Managers.getDefaultHistory().getHistory();
-
-        FileBackedTasksManager fileBackedTasksManager2 = loadFromFile(fileBackedTasksManager1.file);
-        fileBackedTasksManager2.getAllTasks();
-        fileBackedTasksManager2.getAllEpics();
-        fileBackedTasksManager2.getAllSubtasks();
-        Managers.getDefaultHistory().getHistory();
-
-
-
-
     }
 }

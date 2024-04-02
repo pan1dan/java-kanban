@@ -91,11 +91,28 @@ public class Task {
         this.status = status;
     }
 
+    public Task (String name, String additionalInformation, TaskStatuses status, int id) {
+        this.name = name;
+        this.additionalInformation = additionalInformation;
+        this.status = status;
+        this.id = id;
+    }
+
     public Task (String name, String additionalInformation, TaskStatuses status, LocalDateTime startTime,
                  int duration) {
         this.name = name;
         this.additionalInformation = additionalInformation;
         this.status = status;
+        this.startTime = Utils.formattedTime(startTime);
+        this.duration = duration;
+    }
+
+    public Task (String name, String additionalInformation, TaskStatuses status, int id, LocalDateTime startTime,
+                 int duration) {
+        this.name = name;
+        this.additionalInformation = additionalInformation;
+        this.status = status;
+        this.id = id;
         this.startTime = Utils.formattedTime(startTime);
         this.duration = duration;
     }
