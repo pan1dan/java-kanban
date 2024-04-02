@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("1");
         System.out.println("Вариант проверки:");
         System.out.println("1 (старый)");
         System.out.println("2 (новый)");
