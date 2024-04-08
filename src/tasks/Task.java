@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class Task {
-    private final TypeOfTask type = TypeOfTask.TASK;
+    protected TypeOfTask type;
     protected String name;
     protected TaskStatuses status;
     protected int id = 0;
@@ -74,6 +74,7 @@ public class Task {
         this.name = name;
         this.additionalInformation = additionalInformation;
         this.status = TaskStatuses.NEW;
+        type = TypeOfTask.TASK;
     }
 
     public Task (String name, String additionalInformation, LocalDateTime startTime,
@@ -83,12 +84,14 @@ public class Task {
         this.status = TaskStatuses.NEW;
         this.startTime = Utils.formattedTime(startTime);
         this.duration = duration;
+        type = TypeOfTask.TASK;
     }
 
     public Task (String name, String additionalInformation, TaskStatuses status) {
         this.name = name;
         this.additionalInformation = additionalInformation;
         this.status = status;
+        type = TypeOfTask.TASK;
     }
 
     public Task (String name, String additionalInformation, TaskStatuses status, int id) {
@@ -96,6 +99,7 @@ public class Task {
         this.additionalInformation = additionalInformation;
         this.status = status;
         this.id = id;
+        type = TypeOfTask.TASK;
     }
 
     public Task (String name, String additionalInformation, TaskStatuses status, LocalDateTime startTime,
@@ -105,6 +109,7 @@ public class Task {
         this.status = status;
         this.startTime = Utils.formattedTime(startTime);
         this.duration = duration;
+        type = TypeOfTask.TASK;
     }
 
     public Task (String name, String additionalInformation, TaskStatuses status, int id, LocalDateTime startTime,
@@ -115,6 +120,7 @@ public class Task {
         this.id = id;
         this.startTime = Utils.formattedTime(startTime);
         this.duration = duration;
+        type = TypeOfTask.TASK;
     }
 
     public String taskToString() {
