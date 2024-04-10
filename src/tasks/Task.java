@@ -11,7 +11,7 @@ public class Task {
     protected TaskStatuses status;
     protected int id = 0;
     protected String additionalInformation;
-    protected int duration;
+    protected int duration = 0;
     protected LocalDateTime startTime = null;
 
     public TypeOfTask getType() {

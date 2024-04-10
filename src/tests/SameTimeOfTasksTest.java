@@ -8,10 +8,9 @@ import tasks.Task;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static java.time.Month.APRIL;
 import static java.time.Month.MAY;
 
-public class sameTimeOfTasksTest {
+public class SameTimeOfTasksTest {
     @Test
     public void sameTimeOfTasksTest() {
         Task task1 = new Task("Read book every day", "30 pages",

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Epic extends Task {
     private ArrayList<Integer> subtasksIds = new ArrayList<>();
-    private LocalDateTime endTime;
+    private LocalDateTime endTime = null;
 
     public ArrayList<Integer> getSubtasksIds() {
         return subtasksIds;

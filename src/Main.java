@@ -1,5 +1,6 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import managers.Managers;
 import tasks.Epic;
 import tasks.Subtask;
@@ -18,7 +19,6 @@ public class Main {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new Utils.LocalDateTimeAdapter())
                 .create();
-//        Gson gson = new Gson();
         Task task1 = new Task("Read book every day", "30 pages",
                 LocalDateTime.of(2024, MARCH,28,13, 0), 60);
         Managers.getDefault().addNewTask(task1);
@@ -47,7 +47,8 @@ public class Main {
         System.out.println(gson.toJson(epic2));
         System.out.println(gson.toJson(subtask21));
 
-
+        String jsonString = gson.toJson(subtask11);
+        Subtask subtaskFromJson = gson.fromJson(jsonString, Subtask.class);
 
 
 
