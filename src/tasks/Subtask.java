@@ -1,9 +1,10 @@
 package tasks;
 
+import utils.Utils;
+
 import java.time.LocalDateTime;
 
 public class Subtask extends Task {
-    private final TypeOfTask type = TypeOfTask.SUBTASK;
     private int idOfEpic;
 
     public int getIdOfEpic() {
@@ -17,40 +18,40 @@ public class Subtask extends Task {
     public Subtask(String name, String additionalInformation, int idOfEpic) {
         super(name, additionalInformation);
         this.idOfEpic = idOfEpic;
+        type = TypeOfTask.SUBTASK;
     }
 
     public Subtask(String name, String additionalInformation, int idOfEpic, LocalDateTime startTime,
                    int duration) {
-        super(name, additionalInformation, startTime, duration);
+        super(name, additionalInformation, Utils.formattedTime(startTime), duration);
         this.idOfEpic = idOfEpic;
+        type = TypeOfTask.SUBTASK;
     }
 
     public Subtask(String name, String additionalInformation, int idOfEpic, TaskStatuses status) {
         super(name, additionalInformation, status);
         this.idOfEpic = idOfEpic;
+        type = TypeOfTask.SUBTASK;
     }
 
     public Subtask(String name, String additionalInformation, int idOfEpic, TaskStatuses status, int id) {
         super(name, additionalInformation, status, id);
         this.idOfEpic = idOfEpic;
+        type = TypeOfTask.SUBTASK;
     }
 
     public Subtask(String name, String additionalInformation, int idOfEpic, TaskStatuses status, LocalDateTime startTime,
                  int duration) {
-        super(name, additionalInformation, status, startTime, duration);
+        super(name, additionalInformation, status, Utils.formattedTime(startTime), duration);
         this.idOfEpic = idOfEpic;
+        type = TypeOfTask.SUBTASK;
     }
 
     public Subtask(String name, String additionalInformation, int idOfEpic, TaskStatuses status, int id,
                    LocalDateTime startTime, int duration) {
-        super(name, additionalInformation, status, id, startTime, duration);
+        super(name, additionalInformation, status, id, Utils.formattedTime(startTime), duration);
         this.idOfEpic = idOfEpic;
-    }
-
-
-    @Override
-    public TypeOfTask getType() {
-        return type;
+        type = TypeOfTask.SUBTASK;
     }
 
     @Override

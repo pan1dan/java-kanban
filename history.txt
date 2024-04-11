@@ -1,1 +1,11 @@
 id,type,name,status,description,startTime,duration,epic
+1,TASK,Read book every day,NEW,30 pages,2024-03-28T13:00,60,
+2,TASK,jump every day,NEW,30 iterations,2024-04-28T13:00,60,
+3,TASK,Eat every day,NEW,3 iterations,2024-05-28T13:00,60,
+4,EPIC,Съездить в Москву,NEW,обязательно до лета,2023-08-28T13:00,120,
+7,EPIC,посмотреть кино,NEW,обязательно до конца месяца,2023-12-28T13:00,60,
+5,SUBTASK,купить билеты,NEW,дешёвые билеты,2023-08-28T13:00,60,4
+6,SUBTASK,купить одежду,NEW,крутую одежду,2023-09-28T13:00,60,4
+8,SUBTASK,найти кино,NEW,в хорошем качестве,2023-12-28T13:00,60,7
+
+8,7,1,6,5,4,2,3,

@@ -6,9 +6,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Epic extends Task {
-    private final TypeOfTask type = TypeOfTask.EPIC;
     private ArrayList<Integer> subtasksIds = new ArrayList<>();
-    private LocalDateTime endTime;
+    private LocalDateTime endTime = null;
 
     public ArrayList<Integer> getSubtasksIds() {
         return subtasksIds;
@@ -20,19 +19,16 @@ public class Epic extends Task {
 
     public Epic(String name, String additionalInformation) {
         super(name, additionalInformation);
+        type = TypeOfTask.EPIC;
     }
 
     public Epic(String name, String additionalInformation, TaskStatuses taskStatuses, int id) {
         super(name, additionalInformation, taskStatuses, id);
+        type = TypeOfTask.EPIC;
     }
 
     @Override
-    public TypeOfTask getType() {
-        return type;
-    }
-
-    @Override
-    public LocalDateTime getEndTime(){
+    public LocalDateTime getEndTime() {
         return Utils.formattedTime(endTime);
     }
 
